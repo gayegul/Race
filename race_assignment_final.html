@@ -1,0 +1,42 @@
+<script>
+	function Animal (name, speed, focus){
+		this.name = name;
+		//Values: 0-9
+		this.speed = speed;
+		this.focus = focus;
+		this.position = 0;
+		this.isFocused = function(distraction) {
+			return distraction < this.focus;
+		}
+		 
+		this.shouldSlip = function(distraction) {
+			return distraction > 8;
+		}
+
+		this.advance = function() {
+			var random = Math.floor(Math.random() * 10);
+			
+			if (this.isFocused(random)) {
+				this.position += this.speed;
+			} 
+			else if (this.shouldSlip(random)) {
+				this.position -= this.speed / 4;
+			}
+		}
+
+		this.progressReport = function() {
+			return this.name + " is at: " + this.position;
+		}
+	}
+	// rabbit, an object, is an instance of Animal class
+	var rabbit = new Animal("Rocky", 8, 3);
+	var turtle = new Animal("Myrtle", 3, 9);
+	var meters = 100;
+
+	while (rabbit.position < meters && turtle.position < meters) {
+		rabbit.advance();
+		turtle.advance();
+		console.log(turtle.progressReport() + "|" + rabbit.progressReport());
+	}
+	
+</script>
